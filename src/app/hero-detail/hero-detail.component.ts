@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { ws_request } from '../service';
 
 import { Hero }         from '../hero';
-import { HeroService }  from '../hero.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -15,7 +15,6 @@ export class HeroDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private heroService: HeroService,
     private location: Location
   ) {}
 
@@ -25,8 +24,9 @@ export class HeroDetailComponent implements OnInit {
 
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+    ws_request('/gethero',{id:id},function(data){
+        console.log(data);
+    });
   }
 
   goBack(): void {
@@ -34,7 +34,8 @@ export class HeroDetailComponent implements OnInit {
   }
 
  save(): void {
-    this.heroService.updateHero(this.hero)
-      .subscribe(() => this.goBack());
+    ws_request('/updatehero',{hero:this.hero},function(){
+        this.goBack();
+    });   
   }
 }
