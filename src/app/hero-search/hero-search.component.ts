@@ -22,10 +22,8 @@ export class HeroSearchComponent implements OnInit {
     search(kw)
     {
         var obj = this;
-        console.log(kw);
         ws_request('/searchheroes',{kw:kw},function(data){
             obj.heroes = data;
-            console.log(data);
         });
     }
 }
