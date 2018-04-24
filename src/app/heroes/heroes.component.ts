@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Hero } from '../hero';
+import { Hero } from '../types/hero';
 import { ws_request } from '../service';
+import { fail } from 'assert';
 
 @Component({
   selector: 'app-heroes',
@@ -17,26 +18,31 @@ export class HeroesComponent implements OnInit {
         this.getHeroes();
     }
 
-    getHeroes(): void {        
-        ws_request('/getheroes',{},function(data){
-            console.log(data);
+    getHeroes(): void {       
+        var obj = this; 
+        ws_request('/getheroes',{},function(data){            
+            obj.heroes = data;
         });
-    }
-    
+    }    
 
     add(name: string): void {
         name = name.trim();
         if (!name) { return; }
-        ws_request('/addhero',{name : name},function(data){
-            this.heroes.add(data)
-            console.log(data);
-        });
+        var obj = this;
+        
+        ws_request('/addhero',{name:name},false);
     }
 
     delete(hero: Hero): void {
-        this.heroes = this.heroes.filter(h => h !== hero);        
+        this.heroes = this.heroes.filter(h => h !== hero);   
+        var obj = this;     
         ws_request('/delhero',{id : hero.id},function(data){
-            this.heroes.remove(hero);
+            var ik = -1;
+            obj.heroes.forEach(function(h, index){
+                if(this.id == h.id)
+                    ik = index;
+            })
+            obj.heroes.splice(ik);
         });
     }
 }

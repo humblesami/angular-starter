@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ws_request } from '../service';
 
-import { Hero }         from '../hero';
+import { Hero } from '../types/hero';
 
 @Component({
   selector: 'app-hero-detail',
@@ -11,31 +11,31 @@ import { Hero }         from '../hero';
   styleUrls: [ './hero-detail.component.css' ]
 })
 export class HeroDetailComponent implements OnInit {
-  @Input() hero: Hero;
+    hero: Hero;
 
-  constructor(
-    private route: ActivatedRoute,
-    private location: Location
-  ) {}
+    constructor(private route: ActivatedRoute,private location: Location)
+    {}
 
-  ngOnInit(): void {
-    this.getHero();
-  }
+    ngOnInit(): void {
+        this.getHero();
+    }
 
-  getHero(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    ws_request('/gethero',{id:id},function(data){
-        console.log(data);
-    });
-  }
+    getHero(): void {
+        const id = +this.route.snapshot.paramMap.get('id');
+        var obj = this;
+        ws_request('/gethero',{id:id},function(data){
+            obj.hero = data;
+        });
+    }
 
-  goBack(): void {
-    this.location.back();
-  }
+    goBack(): void {
+        this.location.back();
+    }
 
- save(): void {
-    ws_request('/updatehero',{hero:this.hero},function(){
-        this.goBack();
-    });   
-  }
+    save(): void {
+        var obj = this;        
+        ws_request('/updatehero',{hero:obj.hero},function(){
+            obj.goBack();
+        });   
+    }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
+import { Hero } from '../types/hero';
+import { ws_request } from '../service';
 
 @Component({
     selector: 'app-dashboard',
@@ -16,6 +17,9 @@ export class DashboardComponent implements OnInit {
     }
 
     getHeroes() {
-        this.heroes = [{ name :"Sami1", id:1}, { name :"Sami2", id:2}];
+        var obj = this; 
+        ws_request('/getheroes',{},function(data){            
+            obj.heroes = data;
+        });
     }
 }

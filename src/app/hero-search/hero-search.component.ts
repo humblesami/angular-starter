@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject }    from 'rxjs/Subject';
-import { of }         from 'rxjs/observable/of';
 
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
-
-import { Hero } from '../hero';
+ import { Hero } from '../types/hero';
 import { ws_request } from '../service';
 
 @Component({
@@ -17,18 +10,21 @@ import { ws_request } from '../service';
     styleUrls: [ './hero-search.component.css' ]
 })
 export class HeroSearchComponent implements OnInit {
-    heroes$: Observable<Hero[]>;
-    private searchTerms = new Subject<string>();
+    heroes: Hero[] = [];
+    private searchTerm = '';
 
     constructor() {}
 
-    // Push a search term into the observable stream.
-    search(term: string): void {
-        this.searchTerms.next(term);
+    ngOnInit(): void {
+        
     }
 
-    ngOnInit(): void {
-        ws_request('/gethero',{kw:this.searchTerms},function(data){
+    search(kw)
+    {
+        var obj = this;
+        console.log(kw);
+        ws_request('/searchheroes',{kw:kw},function(data){
+            obj.heroes = data;
             console.log(data);
         });
     }
