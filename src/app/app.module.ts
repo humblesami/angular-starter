@@ -10,6 +10,7 @@ import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
 import { HeroesComponent }      from './heroes/heroes.component';
 import { HeroSearchComponent }  from './hero-search/hero-search.component';
+import { PageNotFound } from './pagenotfound';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { HeroSearchComponent }  from './hero-search/hero-search.component';
         DashboardComponent,
         HeroesComponent,
         HeroDetailComponent,
-        HeroSearchComponent
+        HeroSearchComponent,
+        PageNotFound
     ],
     bootstrap: [ AppComponent ]
 })

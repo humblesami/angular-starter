@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../types/hero';
 import { ws_request } from '../service';
 
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
 
     getHeroes() {
         var obj = this; 
+        obj.heroes = [];
         ws_request('/getheroes',{},function(data){            
             obj.heroes = data;
         });

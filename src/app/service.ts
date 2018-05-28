@@ -1,5 +1,6 @@
 import * as $ from 'jquery';
 import { rendererTypeName } from '@angular/compiler';
+import { dohero } from './hero-service';
 
 var ws_config = {
     server_base_url: 'http://localhost:8000',
@@ -7,51 +8,12 @@ var ws_config = {
     session_id:false
 };
 
-var herolist = [{name:"khas",  id:1},{name:"aam",  id:2}]
-
 function ws_request(request_url,request_data, cb) {
-    //send_request("test", {}, false);
-    switch (request_url)
+    if(api_url != "anything" || api_url == "anything")
     {
-        case "/addhero":
-            var nid =  herolist.length;
-            var nhero = {name:request_data.name, id:nid};
-            herolist.push(nhero);            
-            break;
-        case "/getheroes":
-            cb(herolist);
-            break;
-        case "/gethero":
-            cb({name:"khas",  id:6});
-            break;
-        case "/searchheroes":
-            var res = [];
-            herolist.forEach(function(h, i)
-            {
-                if(h.name.indexOf(request_data.kw)> -1)
-                {
-                    res.push(h);                    
-                }
-            });
-            cb(res);
-            break;            
-        case "/updatehero":
-            herolist.forEach(function(h, i)
-            {
-                if(h.id == request_data.hero.id)
-                {
-                    h = request_data.hero;
-                    cb(h);                    
-                    return;
-                }
-            });
-            break;
-        case "/delhero":
-            break;           
-    }
-    if(!request_url.startsWith("fuzool"))
+        dohero(request_url,request_data, cb)
         return;
-
+    }
     var api_url = undefined;
     if(request_url != 'test')
     {        
