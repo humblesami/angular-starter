@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { constants } from '../../_helpers/constants';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -22,14 +23,23 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService) {}
+        private authenticationService: AuthenticationService) {
+            constants.user_data = {
+                user: '',
+                db: 'db11',
+                photo: '',
+                token: '',
+                id: ''
+            }
+            localStorage.clear();
+        }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['imran.alrai@gmail.com', Validators.required],
             password: ['Digit@l1', Validators.required]
         });
-
+        
         // reset login status
         this.authenticationService.logout();
 
@@ -48,16 +58,27 @@ export class LoginComponent implements OnInit {
             return;
         }
 
+        let auth = this;
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                (data:any) => {
-                    this.router.navigate([this.returnUrl]);
+        this.authenticationService.login(this.f.username.value, this.f.password.value).pipe(
+            first()).subscribe(
+                (result:any) => {
+                    if(!result.error)
+                    {                      
+                        this.router.navigate([this.returnUrl]);
+                    }
+                    else
+                    {
+                        this.error = result.error;
+                    }
+                    this.loading = false;
                 },
             (error:Error) => {
-                    this.error = error;
-                    this.loading = false;
-                });
+                this.error = error;
+                this.loading = false;
+            }
+        );
     }
+
+    
 }

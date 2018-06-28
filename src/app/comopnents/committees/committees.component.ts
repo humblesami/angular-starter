@@ -21,10 +21,13 @@ export class CommitteesComponent implements OnInit {
 
     ngOnInit() {
         this.service.getCommittees({}).subscribe(
-            (data:any)=>{
-
-                this.committees = data.result.data;
-
+            (result:any)=>{
+                if(result.error)
+                {
+                    
+                }
+                else
+                    this.committees = result.data;
             },
             (error:any) =>{
                 console.log("Something went wrong", error);

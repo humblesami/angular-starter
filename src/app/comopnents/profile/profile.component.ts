@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     templateUrl: 'profile.component.html',
@@ -9,17 +10,9 @@ export class ProfileComponent implements OnInit {
     profile_photo: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png';
 
     editable: boolean;
-    globalData:any;
     profile_data:any;
 
-    constructor(private service: UserService) {
-        this.globalData = {
-            user : localStorage.getItem('user'),
-            db: localStorage.getItem('db'),
-            photo: localStorage.getItem('photo'),
-            token: localStorage.getItem('token'),
-            id: localStorage.getItem('id')
-        }
+    constructor(private service: UserService, private route: ActivatedRoute) {        
         this.editable = false;
         this.profile_data = {};
     }
@@ -30,14 +23,29 @@ export class ProfileComponent implements OnInit {
 
 
     ngOnInit() {
-        this.service.profile.get({token: this.globalData.token, db: this.globalData.db, id: this.globalData.id}).subscribe(
-            (data:any)=>{
-                this.profile_data = data.result.data;
-                console.log(this.profile_data)
-
-            },
-            (error:any) =>{
-                console.log("Something went wrong", error);
-            })
+        let profile= this;
+        this.route.params.forEach((params: Params) => {
+            if (params['id'] !== undefined) {
+                this.service.profile.get({ id: params['id']}).subscribe(
+                    (result:any)=>{
+                        if(result.error)
+                        {
+                            
+                        }
+                        else
+                        {
+                            profile.profile_data = result.data;
+                            if(profile.profile_data.login)
+                            {
+                                profile.profile_data.last_login=profile.profile_data.login.last;
+                            }
+                        }                            
+                    },
+                    (error:any) =>{
+                        console.log("Something went wrong", error);
+                    })
+            }
+          });
+        
     }
 }

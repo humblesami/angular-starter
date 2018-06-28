@@ -16,7 +16,6 @@ export class MeetingsComponent implements OnInit {
 
     date: Number = Date.now();
 
-    globalData: any;
     home_data: any;
     active_doc:any;
 
@@ -26,13 +25,6 @@ export class MeetingsComponent implements OnInit {
         this.welcome = true;
         this.calender = false;
         this.to_do = false;
-        this.globalData = {
-            user : localStorage.getItem('user'),
-            db: localStorage.getItem('db'),
-            photo: localStorage.getItem('photo'),
-            token: localStorage.getItem('token'),
-            id: localStorage.getItem('id'),
-        }
         this.home_data = {
             doc_ids: [],
             photo: '',
@@ -41,7 +33,7 @@ export class MeetingsComponent implements OnInit {
 
     showDoc(doc:any, flag:string){
         this.active_doc = doc;        
-        this.service.getDocument({token: this.globalData.token, db: this.globalData.db, doc_id: doc.id}, flag).subscribe(
+        this.service.getDocument({doc_id: doc.id}, flag).subscribe(
             (data:any)=>{
                 console.log('Document Data: ', data)
             },
@@ -102,7 +94,7 @@ export class MeetingsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.service.getAll({token: this.globalData.token, db: this.globalData.db}).subscribe(
+        this.service.getAll({}).subscribe(
             (data:any)=>{
                 this.home_data = data.result.data;
                 console.log('Home Data : ', this.home_data);

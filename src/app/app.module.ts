@@ -20,6 +20,7 @@ import { PageNotFound } from './pagenotfound';
 import { AuthenticationService, UserService, HttpService } from './_services/index';
 import { ProfilesComponent } from './comopnents/profiles/profiles.component';
 import { CommitteesComponent } from './comopnents/committees/index';
+import { ProfileComponent } from './comopnents/profile/profile.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { CommitteesComponent } from './comopnents/committees/index';
         HomeComponent,
         ProfilesComponent,
         CommitteesComponent,
+        ProfileComponent,
         PageNotFound
     ],
     providers:[

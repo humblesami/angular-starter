@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: 'profiles.component.html',
@@ -7,28 +8,28 @@ import { UserService } from '../../_services';
 })
 export class ProfilesComponent implements OnInit {
 
-    globalData: any;
     profiles_data: any;
 
-    constructor(private service: UserService) {
-        this.globalData = {
-            user: localStorage.getItem('user'),
-            db: localStorage.getItem('db'),
-            photo: localStorage.getItem('photo'),
-            token: localStorage.getItem('token'),
-            id: localStorage.getItem('id')
-        }
+    constructor(private service: UserService, private router: Router) {        
         this.profiles_data = [];
     }
 
+    gotoDetail(hero: any): void {
+        const link = ['/profile', hero.id];
+        this.router.navigate(link);
+    }
 
     ngOnInit() {
-        this.service.profiles({token: this.globalData.token, db: this.globalData.db}).subscribe(
-            (data: any) => {
-                this.profiles_data = data.result.data;
-                console.log(data)
+        this.service.profiles({}).subscribe(
+            (result:any)=>{
+                if(result.error)
+                {
+
+                }
+                else
+                    this.profiles_data = result.data;
             },
-            (error: any) => {
+            (error:any) =>{
                 console.log("Something went wrong", error);
             })
     }

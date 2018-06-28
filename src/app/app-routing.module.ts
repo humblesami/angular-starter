@@ -6,6 +6,7 @@ import { LoginComponent }   from './comopnents/login/login.component';
 import { HomeComponent }   from './comopnents/home/home.component';
 
 import { PageNotFound } from './pagenotfound';
+import { ProfileComponent } from './comopnents/profile/profile.component';
 import { ProfilesComponent } from './comopnents/profiles/profiles.component';
 import { CommitteesComponent } from './comopnents/committees/index';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent },
     { path: 'profiles', component: ProfilesComponent },
+    { path: 'profile/:id', component: ProfileComponent },
     { path: 'committees', component: CommitteesComponent },
     { path: "**", component: PageNotFound }
 ];

@@ -8,7 +8,7 @@
              data-toggle="modal"
              data-target="#myModal"
              *ngFor="let profile of profiles_data"
-             (click)="showCommittee(profile)">
+             (click)="gotoDetail(profile)">
             <div class="row">
                 <div class="container">
                     <b>{{profile.name}}</b>

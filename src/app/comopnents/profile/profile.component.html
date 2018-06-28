@@ -1,4 +1,6 @@
-﻿<app-header></app-header>
+﻿<div id="main">
+    <router-outlet></router-outlet>
+</div>
 
 <div *ngIf="!editable" id="main-div" class="container">
     <div class="details-card">
@@ -7,13 +9,13 @@
                 <img class="img-thumbnail" src="{{profile_photo}}">
             </div>
             <div class="col-sm-4">
-                <div class="container">
+                <div class="container" *ngIf="profile_data && profile_data.last_login">
                     <h3 class="row">Last Login Details</h3>
-                    <span *ngIf="profile_data.login.last.login_time.length >= 1" class="row">Login Time: {{profile_data.login.last.login_time}}</span>
-                    <span *ngIf="profile_data.login.last.platform.length >= 1" class="row">OS: {{profile_data.login.last.platform}}</span>
-                    <span *ngIf="profile_data.login.last.browser.length >= 1" class="row">Browser: {{profile_data.login.last.browser}}</span>
-                    <span *ngIf="profile_data.login.last.ip.length >= 1" class="row">IP: {{profile_data.login.last.ip}}</span>
-                    <span *ngIf="profile_data.login.last.location.length >= 1" class="row">Location: {{profile_data.login.last.location}}</span>
+                    <span *ngIf="profile_data.last_login.login_time.length >= 1" class="row">Login Time: {{profile_data.last_login.login_time}}</span>
+                    <span *ngIf="profile_data.last_login.platform.length >= 1" class="row">OS: {{profile_data.last_login.platform}}</span>
+                    <span *ngIf="profile_data.last_login.browser.length >= 1" class="row">Browser: {{profile_data.last_login.browser}}</span>
+                    <span *ngIf="profile_data.last_login.ip.length >= 1" class="row">IP: {{profile_data.last_login.ip}}</span>
+                    <span *ngIf="profile_data.last_login.location.length >= 1" class="row">Location: {{profile_data.last_login.location}}</span>
                 </div>
             </div>
         </div>
@@ -131,11 +133,11 @@
             <div class="col-sm-4">
                 <div class="container">
                     <h3 class="row">Last Login Details</h3>
-                    <span *ngIf="profile_data.login.last.login_time.length >= 1" class="row">Login Time: {{profile_data.login.last.login_time}}</span>
-                    <span *ngIf="profile_data.login.last.platform.length >= 1" class="row">OS: {{profile_data.login.last.platform}}</span>
-                    <span *ngIf="profile_data.login.last.browser.length >= 1" class="row">Browser: {{profile_data.login.last.browser}}</span>
-                    <span *ngIf="profile_data.login.last.ip.length >= 1" class="row">IP: {{profile_data.login.last.ip}}</span>
-                    <span *ngIf="profile_data.login.last.location.length >= 1" class="row">Location: {{profile_data.login.last.location}}</span>
+                    <span *ngIf="profile_data.last_login.login_time.length >= 1" class="row">Login Time: {{profile_data.last_login.login_time}}</span>
+                    <span *ngIf="profile_data.last_login.platform.length >= 1" class="row">OS: {{profile_data.last_login.platform}}</span>
+                    <span *ngIf="profile_data.last_login.browser.length >= 1" class="row">Browser: {{profile_data.last_login.browser}}</span>
+                    <span *ngIf="profile_data.last_login.ip.length >= 1" class="row">IP: {{profile_data.last_login.ip}}</span>
+                    <span *ngIf="profile_data.last_login.location.length >= 1" class="row">Location: {{profile_data.last_login.location}}</span>
                 </div>
             </div>
         </div>

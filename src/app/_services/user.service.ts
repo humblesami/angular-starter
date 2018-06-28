@@ -10,7 +10,7 @@ export class UserService {
 
     /* ####### Start Page details ####### */
     getAll(data:{}) {
-        return this.http.call_post_http('ws/mp-home-json', data, false);
+        return this.http.call_post_http('ws/mp-home-json', data);
     }
 
     /* ####### Get Document ####### */
@@ -23,13 +23,13 @@ export class UserService {
         if(flag === 'sign'){
             url = 'doc/signature-json';
         }
-        return this.http.call_post_http(url, data, false);
+        return this.http.call_post_http(url, data);
     }
 
     /* ####### Profile get and update ####### */
     profile = {
         get : (data: {}) => {
-            return this.http.call_post_http('ws/my-profile-json', data, false);
+            return this.http.call_post_http('ws/my-profile-json', data);
         },
         // set : ( data : {}) => {
         //     return this.http.call_post_http('http://localhost:9000/wasif/api/users/', data, false);
@@ -38,11 +38,11 @@ export class UserService {
 
     /* ####### Get All Profile ####### */
     profiles(data: {}){
-        return this.http.call_post_http('ws/profiles-json', data, false);
+        return this.http.call_post_http('ws/profiles-json', data);
     }
 
     /* ####### Get All Committees Data Read Only ####### */
     getCommittees(data: {}){
-        return this.http.call_post_http( 'ws/committees-json', data, false);
+        return this.http.call_post_http( 'ws/committees-json', data);
     }
 }
