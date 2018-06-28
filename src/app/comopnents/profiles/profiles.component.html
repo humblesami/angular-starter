@@ -1,0 +1,57 @@
+﻿<div id="main">
+    <router-outlet></router-outlet>
+</div>
+
+<div id="main-div" class="container">
+    <div class="row">
+        <div class="col-sm-3 meeting-card"
+             data-toggle="modal"
+             data-target="#myModal"
+             *ngFor="let profile of profiles_data"
+             (click)="showCommittee(profile)">
+            <div class="row">
+                <div class="container">
+                    <b>{{profile.name}}</b>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="showCommitteeModal" class="modal fade" id="myModal" role="dialog" >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="pull-left"><b>{{popup_committee.name}}</b></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <h5><b>Members</b></h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm" *ngFor="let member of popup_committee.members">
+                                <div class="row">
+                                    <img *ngIf="member.photo" class="img-thumbnail" src="data:image/jpeg;base64,{{member.photo}}">
+                                    <img *ngIf="!(member.photo)" class="img-thumbnail" src="{{img}}">
+                                </div>
+                                <div class="row">
+                                    {{member.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

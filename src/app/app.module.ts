@@ -1,16 +1,26 @@
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { routing }        from './app.routing';
+//import { AuthGuard } from './_guards';
+
+import { JwtInterceptor } from './_helpers';
+
+
 import { AppRoutingModule }     from './app-routing.module';
 import { AppComponent }         from './app.component';
-import { DashboardComponent }   from './dashboard/dashboard.component';
-import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
-import { HeroesComponent }      from './heroes/heroes.component';
-import { HeroSearchComponent }  from './hero-search/hero-search.component';
+
+import { LoginComponent }   from './comopnents/login/login.component';
+import { HomeComponent }   from './comopnents/home/home.component';
+
 import { PageNotFound } from './pagenotfound';
+import { AuthenticationService, UserService, HttpService } from './_services/index';
+import { ProfilesComponent } from './comopnents/profiles/profiles.component';
+import { CommitteesComponent } from './comopnents/committees/index';
+
 
 @NgModule({
     imports: [
@@ -18,14 +28,20 @@ import { PageNotFound } from './pagenotfound';
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent,
-        DashboardComponent,
-        HeroesComponent,
-        HeroDetailComponent,
-        HeroSearchComponent,
+        LoginComponent,
+        HomeComponent,
+        ProfilesComponent,
+        CommitteesComponent,
         PageNotFound
+    ],
+    providers:[
+        AuthenticationService,
+        HttpService,
+        UserService
     ],
     bootstrap: [ AppComponent ]
 })

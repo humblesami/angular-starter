@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Router, NavigationStart } from '@angular/router';
 
-import { DashboardComponent }   from './dashboard/dashboard.component';
-import { HeroesComponent }      from './heroes/heroes.component';
-import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
+
+import { LoginComponent }   from './comopnents/login/login.component';
+import { HomeComponent }   from './comopnents/home/home.component';
+
 import { PageNotFound } from './pagenotfound';
+import { ProfilesComponent } from './comopnents/profiles/profiles.component';
+import { CommitteesComponent } from './comopnents/committees/index';
+
 
 const routes: Routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'detail/:id', component: HeroDetailComponent },
-    { path: 'heroes', component: HeroesComponent },
+    { path: '', redirectTo: '/', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: '', component: HomeComponent },
+    { path: 'profiles', component: ProfilesComponent },
+    { path: 'committees', component: CommitteesComponent },
     { path: "**", component: PageNotFound }
 ];
 
@@ -22,7 +27,7 @@ export class AppRoutingModule {
     constructor(private router: Router) {
         router.events.forEach((event) => {
             if(event instanceof NavigationStart) {
-                console.log(event)
+                
             }
         });
     };

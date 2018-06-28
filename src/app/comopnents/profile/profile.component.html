@@ -1,0 +1,229 @@
+﻿<app-header></app-header>
+
+<div *ngIf="!editable" id="main-div" class="container">
+    <div class="details-card">
+        <div class="row">
+            <div class="col-sm-8">
+                <img class="img-thumbnail" src="{{profile_photo}}">
+            </div>
+            <div class="col-sm-4">
+                <div class="container">
+                    <h3 class="row">Last Login Details</h3>
+                    <span *ngIf="profile_data.login.last.login_time.length >= 1" class="row">Login Time: {{profile_data.login.last.login_time}}</span>
+                    <span *ngIf="profile_data.login.last.platform.length >= 1" class="row">OS: {{profile_data.login.last.platform}}</span>
+                    <span *ngIf="profile_data.login.last.browser.length >= 1" class="row">Browser: {{profile_data.login.last.browser}}</span>
+                    <span *ngIf="profile_data.login.last.ip.length >= 1" class="row">IP: {{profile_data.login.last.ip}}</span>
+                    <span *ngIf="profile_data.login.last.location.length >= 1" class="row">Location: {{profile_data.login.last.location}}</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="container">
+                <div style="border:1px solid #ccc">
+                    <div class="container">
+                        <div class="clearfix">
+                            <button (click)="editProfile()" type="button" class="cancelbtn">Edit</button>
+                        </div>
+                        <hr>
+                        
+                        <div class="container">
+                            <div *ngIf="profile_data.name" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="job-title" ><b>Name</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.name}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.nick_name" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="department" ><b>Nick Nmae</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.nick_name}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.email" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="w-phone" ><b>Email</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.email}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div *ngIf="profile_data.job_id" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="job-title" ><b>Job Title</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.job_id}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.department_id" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="department" ><b>Department</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.department_id}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.work_phone" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="w-phone" ><b>Work Phone</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.work_phone}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.mobile_phone" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="c-phone" ><b>Cell Phone</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.mobile_phone}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.fax" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="fax" ><b>Fax</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.fax}}
+                                </div>
+                            </div>
+                            <div *ngIf="profile_data.website" class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="website" ><b>Website</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{profile_data.website}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="job-title" ><b>Committees</b></label>
+                                </div>
+                                <div class="col-sm-8" >
+                                    <span class="pill" *ngFor="let com of profile_data.committees">{{com.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="editable" id="main-div-edit" class="container">
+    <div class="details-card">
+        <div class="row">
+            <div class="col-sm-8">
+                <img class="img-thumbnail" src="{{profile_photo}}">
+            </div>
+            <div class="col-sm-4">
+                <div class="container">
+                    <h3 class="row">Last Login Details</h3>
+                    <span *ngIf="profile_data.login.last.login_time.length >= 1" class="row">Login Time: {{profile_data.login.last.login_time}}</span>
+                    <span *ngIf="profile_data.login.last.platform.length >= 1" class="row">OS: {{profile_data.login.last.platform}}</span>
+                    <span *ngIf="profile_data.login.last.browser.length >= 1" class="row">Browser: {{profile_data.login.last.browser}}</span>
+                    <span *ngIf="profile_data.login.last.ip.length >= 1" class="row">IP: {{profile_data.login.last.ip}}</span>
+                    <span *ngIf="profile_data.login.last.location.length >= 1" class="row">Location: {{profile_data.login.last.location}}</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="container">
+                <form style="border:1px solid #ccc" validate>
+                    <div class="container">
+
+                        <label for="name"><b>Name</b></label>
+                        <input value="{{user.name}}" type="text" placeholder="Enter Name" id="name" required>
+                        <input value="{{user.nick}}" type="text" placeholder="Enter Nick" id="nick" required>
+
+                        <label for="email"><b>Email</b></label>
+                        <input value="{{user.email}}" type="text" placeholder="Enter Email" id="email" required>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="job-title" ><b>Job Title</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input value="{{user.jobTitle}}" type="text" placeholder="Enter Job Title" id="job-title" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="department" ><b>Department</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input value="{{user.department}}" type="text" placeholder="Enter Department" id="department" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="w-phone" ><b>Work Phone</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input value="{{user.workPhone}}" type="text" placeholder="Enter Work Phone" id="w-phone" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="c-phone" ><b>Cell Phone</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input value="{{user.cellPhone}}" type="text" placeholder="Enter Cell Phone" id="c-phone" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="fax" ><b>Fax</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input value="{{user.fax}}" type="text" placeholder="Enter Fax" id="fax" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="website" ><b>Website</b></label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input value="{{user.website}}" type="text" placeholder="Enter Website" id="website" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2" style="border-right: 1px solid #cccccc;">
+                                    <label for="job-title" ><b>Committees</b></label>
+                                </div>
+                                <div class="col-sm-8" >
+                                    <span class="pill" *ngFor="let com of profile_data.committees">{{com.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="clearfix col-sm">
+                                <button (click)="editProfile()" type="button" class="cancelbtn">Cancle</button>
+                            </div>
+                            <div class="clearfix col-sm">
+                                <button type="submit" class="signupbtn">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

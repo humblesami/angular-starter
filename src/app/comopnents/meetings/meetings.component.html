@@ -1,0 +1,195 @@
+﻿<app-header></app-header>
+
+<div id="main">
+    <nav class="navbar navbar-expand-md home" style="margin-top: 56px!important;">
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <button class="nav-item">
+                    <span (click)="show_welcom()" class="nav-link">Welcome</span>
+                </button>
+
+                <button class="nav-item">
+                    <span (click)="show_calender()" class="nav-link">Calender</span>
+                </button>
+
+                <button class="nav-item">
+                    <span (click)="show_to_do()" class="nav-link">To-Do Items</span>
+                </button>
+            </ul>
+        </div>
+    </nav>
+</div>
+<br>
+
+<div class="container" style="margin-top: 1px;">
+
+    <div *ngIf="welcome" id="welcome">
+        <h4 style="text-align: center">{{home_data.title}}</h4><br>
+        <div class="row" >
+            <div class="col-sm-6" style="overflow-x: scroll; height: auto;">
+                <div id="home-content"></div>
+            </div>
+            <div class="col-sm-6">
+                <img width="100%" [src]="data:image/jpeg;base64,{{home_data.photo}}">
+            </div>
+        </div>
+        <hr>
+        <div class="column">
+            <div class="row">
+                <h4><b>Documents</b></h4><br>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                <span (click)="showDoc(doc, 'meet')"
+                      style="margin-left: 10px"
+                      data-toggle="modal"
+                      data-target="#documentModal"
+                      *ngFor="let doc of home_data.doc_ids">
+                    <img [src]="http://www.jpss.noaa.gov/assets/images/document-icon.png" width="30px">
+                    {{doc.name}}
+                </span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="column">
+            <div class="row">
+                <h4><b>Videos</b></h4><br>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                <div *ngFor="let vid of home_data.video_ids" style="text-align: center">
+                    <span><p><b>{{vid.name}}</b></p></span><br>
+                    <iframe width="320" height="240" src="{{vid.url}}"></iframe>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="calender" id="calender"></div>
+
+    <div *ngIf="to_do" id="to-do">
+        <!--Meeting-->
+        <div class="row">
+            <div class="container bordered">
+                <div class="row modal-header">
+                    Upcoming Meetings
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div style="font-size: 12px" class="col-sm-3 meeting-card" *ngFor="let meet of home_data.to_do_items.pending_meetings">
+                                <div class="row">
+                                    <div class="col-sm-4" style="padding:5%;background-color: #7c7bad;color: #ffffff;margin-right: 15px;">
+                                        <span class="container">
+                                            {{meet.start}}
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <h5><b>{{meet.name}}</b></h5>
+                                        {{meet.street}}<br>
+                                        {{meet.address}}<br>
+                                        {{meet.city}} {{meet.country_state}} {{meet.zip}}
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <button>Accept</button>
+                                    <button>Decline</button>
+                                    <button>Tentative</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Surveys-->
+        <div class="row">
+            <div class="container bordered">
+                <div class="row modal-header">
+                    Surveys
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3 meeting-card" *ngFor="let sur of home_data.to_do_items.pending_surveys">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <span class="container">
+                                            <h5><b>{{sur.title}}</b></h5>
+                                            Meeting: {{sur.meeting_id}}
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button style="margin-top: 50%; color: #ffffff;background-color: #7c7bad;border-color: #7c7bad">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Documents-->
+        <div class="row">
+            <div class="container bordered">
+                <div class="row modal-header">
+                    Documents To Sign
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3 meeting-card"
+                                 style="font-size: 12px;"
+                                 *ngFor="let doc of home_data.to_do_items.pending_documents">
+                                <div class="container">
+                                    <div class="row">
+                                        <span class="box">
+                                            <img src="https://png.icons8.com/metro/1600/document.png"
+                                                 style="cursor:pointer;"
+                                                 (click)="showDoc(doc,'sign')"
+                                                 data-toggle="modal"
+                                                 data-target="#documentModal"
+                                                 width="50px">
+                                        </span>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <b>My Signature: </b> {{doc.mp_signature_status}}
+                                    </div>
+                                    <div class="row">
+                                        <h5><b>Doc</b></h5>
+                                    </div>
+                                    <div class="row">
+                                        <b>Meeting: {{doc.meeting_id}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="documentModal" role="dialog" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="height: 75vh !important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <!--<embed src="data:application/pdf;base64,{{pdf_path}}" >-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
